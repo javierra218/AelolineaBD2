@@ -1,0 +1,52 @@
+--Javier Rojas Agredo
+
+
+---------CREACION DE PROCEDIMIENTOS---------------------
+---Compilar procedimiento uno por uno
+/*==============================================================*/
+/* PROCEDIMIENTO CONSULTARAVIONES                             */
+/*==============================================================*/
+create or replace NONEDITIONABLE PROCEDURE CONSULTARAVIONES(NIT_EMPRESA IN NUMBER, O_CURSOR IN OUT SYS_REFCURSOR)
+IS
+BEGIN
+OPEN O_CURSOR FOR 
+SELECT *
+FROM AVION
+WHERE id_empresa=NIT_EMPRESA;
+END CONSULTARAVIONES;
+
+
+/*==============================================================*/
+/* PROCEDIMIENTO ELIMINARAVION                              */
+/*==============================================================*/
+create or replace NONEDITIONABLE PROCEDURE ELIMINARAVION(serial avion.avionserial%TYPE)
+IS
+BEGIN
+
+DELETE FROM AVION WHERE avionserial = SERIAL;
+
+END ELIMINARAVION;
+
+
+
+/*==============================================================*/
+/* PROCEDIMIENTO INSERTARAVION                             */
+/*==============================================================*/
+create or replace NONEDITIONABLE PROCEDURE INSERTARAVION(serial avion.avionserial%type, idAerolinea avion.id_empresa%type,marca avion.avionmarca%type,tipo avion.aviontipo%type,longitud avion.avionlongitud%type,pais avion.AVIONPAISENSAMBLE%type,fecha VARCHAR2)
+IS
+BEGIN
+INSERT INTO avion (AVIONSERIAL, ID_EMPRESA, AVIONMARCA, AVIONTIPO, AVIONLONGITUD, AVIONPAISENSAMBLE, AVIONFECHAENSAMBLE)  VALUES (serial, idAerolinea, marca, tipo, longitud, pais, TO_DATE(FECHA, 'DD/MM/YYYY'));
+
+END INSERTARAVION;
+
+
+/*==============================================================*/
+/* PROCEDIMIENTO INSERTAREMPRESA                             */
+/*==============================================================*/
+create or replace NONEDITIONABLE PROCEDURE INSERTAREMPRESA(NIT NUMBER, NOMBRE VARCHAR2, FECHA VARCHAR2)
+IS
+BEGIN
+
+INSERT INTO EMPRESA (EMPRESANIT, EMPRESANOMBRE, EMPRESAFECHA) VALUES (NIT, NOMBRE, TO_DATE(FECHA,'DD/MM/YYYY'));
+
+END INSERTAREMPRESA;

@@ -1,0 +1,50 @@
+--Javier Rojas Agredo
+
+alter table AVION
+   drop constraint FK_AVION_TIENE_EMPRESA;
+
+drop index TIENE_FK;
+
+drop table AVION cascade constraints;
+
+drop table EMPRESA cascade constraints;
+
+/*==============================================================*/
+/* Table: AVION                                                 */
+/*==============================================================*/
+create table AVION 
+(
+   AVIONSERIAL          VARCHAR2(100)        not null,
+   ID_EMPRESA           INTEGER              not null,
+   AVIONMARCA           VARCHAR2(100)        not null,
+   AVIONTIPO            CHAR(10)             not null
+      constraint CKC_AVIONTIPO_AVION check (AVIONTIPO in ('carga','comercial','militar')),
+   AVIONLONGITUD        FLOAT(100)           not null,
+   AVIONPAISENSAMBLE    VARCHAR2(100)        not null,
+   AVIONFECHAENSAMBLE   DATE                 not null,
+   constraint PK_AVION primary key (AVIONSERIAL)
+);
+
+/*==============================================================*/
+/* Index: TIENE_FK                                              */
+/*==============================================================*/
+create index TIENE_FK on AVION (
+   EMPRESANIT ASC
+);
+
+/*==============================================================*/
+/* Table: EMPRESA                                               */
+/*==============================================================*/
+create table EMPRESA 
+(
+   EMPRESANIT           INTEGER              not null,
+   EMPRESANOMBRE        VARCHAR2(50)         not null,
+   EMPRESAFECHA         DATE                 not null,
+   constraint PK_EMPRESA primary key (EMPRESANIT)
+);
+
+alter table AVION
+   add constraint FK_AVION_TIENE_EMPRESA foreign key (ID_EMPRESA)
+      references EMPRESA (EMPRESANIT);
+
+commit;

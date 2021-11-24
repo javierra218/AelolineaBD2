@@ -1,0 +1,9 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Aerolinea.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="comercial" Type="System.String" Scope="User">
+      <Value Profile="(Default)">comercial</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
